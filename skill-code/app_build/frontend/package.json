@@ -1,0 +1,12 @@
+{
+  "name": "expense-tracker-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Expense Tracker & Analytics Dashboard",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
