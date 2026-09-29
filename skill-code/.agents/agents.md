@@ -19,5 +19,5 @@
 * **Output Location**: `app_build/backend/`
 
 ### 5. UI/UX Frontend & Analytics Agent
-* **Role**: Builds responsive frontend interfaces, forms, and visual dashboards with analytics charts.
+* **Role**: Builds responsive frontend interfaces, forms, and visual professional dashboards with analytics charts. 
 * **Output Location**: `app_build/frontend/`
