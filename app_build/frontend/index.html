@@ -1245,15 +1245,261 @@
     }
 
     /* =========================================================================
-       AUTHENTICATION OVERLAY SCREEN (SPLIT-SCREEN DESIGN SYSTEM)
+       EMI & POLICY REMINDERS & SCHEDULER
+       ========================================================================= */
+    .auto-deduct-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--income);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .live-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: livePulse 2s infinite;
+    }
+
+    @keyframes livePulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .emi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      padding: 16px 20px;
+    }
+
+    .emi-card {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .emi-card:hover {
+      border-color: rgba(245, 158, 11, 0.35);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .emi-card.is-due-today {
+      border-color: rgba(244, 63, 94, 0.5);
+      background: linear-gradient(180deg, rgba(244, 63, 94, 0.06) 0%, var(--surface-raised) 100%);
+      box-shadow: 0 0 15px rgba(244, 63, 94, 0.15);
+    }
+
+    .emi-card.is-due-soon {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, var(--surface-raised) 100%);
+    }
+
+    .emi-card.is-paid {
+      border-color: rgba(16, 185, 129, 0.3);
+      opacity: 0.9;
+    }
+
+    .emi-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .emi-icon-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .emi-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .emi-title-text {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .emi-category-tag {
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .emi-amount-badge-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding-top: 4px;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .emi-amount {
+      font-family: var(--font-mono);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .emi-due-info {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .badge-emi-countdown {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .badge-emi-today {
+      background: var(--expense-dim);
+      color: var(--expense);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      animation: livePulse 2s infinite;
+    }
+
+    .badge-emi-warning {
+      background: var(--warning-dim);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-emi-upcoming {
+      background: var(--info-dim);
+      color: var(--info);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-emi-paid {
+      background: var(--income-dim);
+      color: var(--income);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-emi-overdue {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.5);
+    }
+
+    .emi-actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-pay-now {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      padding: 5px 11px;
+      border-radius: var(--radius-sm);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-pay-now:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .btn-mark-paid {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 5px 9px;
+      border-radius: var(--radius-sm);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-mark-paid:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+      border-color: var(--border-hover, #475569);
+    }
+
+    .btn-mark-paid.is-paid {
+      color: var(--income);
+      border-color: rgba(16, 185, 129, 0.3);
+      background: var(--income-dim);
+    }
+
+    @media (max-width: 768px) {
+      .emi-grid {
+        grid-template-columns: 1fr;
+        padding: 12px 14px;
+      }
+    }
+
+    /* =========================================================================
+       AUTHENTICATION OVERLAY SCREEN (BOOTSTRAP BRAIN THEME)
        ========================================================================= */
     .auth-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.15) 0%, rgba(5, 8, 16, 0.94) 80%), #060911;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      z-index: 9999;
+      background: radial-gradient(circle at 50% 15%, rgba(245, 158, 11, 0.12) 0%, rgba(15, 23, 42, 0.95) 75%), #090d16;
+      z-index: 999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1264,7 +1510,7 @@
     }
 
     [data-theme="light"] .auth-overlay {
-      background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.1) 0%, rgba(241, 245, 249, 0.95) 80%), #f8fafc;
+      background: radial-gradient(circle at 50% 15%, rgba(217, 119, 6, 0.08) 0%, rgba(241, 245, 249, 0.95) 75%), #f1f5f9;
     }
 
     .auth-overlay.hidden {
@@ -1273,29 +1519,27 @@
       pointer-events: none;
     }
 
-    .auth-split-wrapper {
+    .auth-card-wrapper {
       width: 100%;
-      max-width: 960px;
+      max-width: 480px;
       margin: auto;
     }
 
-    .auth-split-card {
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
+    .auth-bsb-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+      padding: 36px 32px;
       position: relative;
     }
 
-    [data-theme="light"] .auth-split-card {
+    [data-theme="light"] .auth-bsb-card {
       background: #ffffff;
-      box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
     }
 
-    .auth-split-card.shake {
+    .auth-bsb-card.shake {
       animation: authShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     }
 
@@ -1323,320 +1567,55 @@
       }
     }
 
-    /* Left Panel: Immersive Branding & Value Showcase */
-    .auth-brand-side {
-      background: linear-gradient(150deg, #090e1a 0%, #0f172a 45%, #1e1b4b 100%);
-      padding: 40px 34px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-      color: #ffffff;
-      border-right: 1px solid rgba(255, 255, 255, 0.07);
-    }
-
-    [data-theme="light"] .auth-brand-side {
-      background: linear-gradient(150deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
-    }
-
-    .auth-brand-bg-glow {
-      position: absolute;
-      top: -50px;
-      left: -50px;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
-      filter: blur(40px);
-      pointer-events: none;
-    }
-
-    .auth-brand-bg-glow-2 {
-      position: absolute;
-      bottom: -50px;
-      right: -50px;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
-      filter: blur(50px);
-      pointer-events: none;
-    }
-
-    .auth-brand-header {
-      position: relative;
-      z-index: 1;
-    }
-
-    .auth-brand-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 12px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #f8fafc;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-      backdrop-filter: blur(8px);
-    }
-
-    .auth-brand-badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
-    }
-
-    .auth-brand-logo-wrap {
+    .auth-header-brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 14px;
+      margin-bottom: 22px;
     }
 
-    .auth-brand-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #f59e0b 100%);
+    .auth-brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-serif);
-      font-size: 22px;
-      font-weight: 800;
-      color: #ffffff;
-      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
-    }
-
-    .auth-brand-name {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-    }
-
-    .auth-brand-name span {
-      color: #f59e0b;
-    }
-
-    .auth-brand-headline {
-      font-size: 21px;
-      font-weight: 800;
-      line-height: 1.3;
-      color: #ffffff;
-      letter-spacing: -0.4px;
-      margin-bottom: 8px;
-    }
-
-    .auth-brand-desc {
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: #94a3b8;
-      margin-bottom: 22px;
-    }
-
-    /* Value Propositions Grid */
-    .auth-value-props {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: relative;
-      z-index: 1;
-      margin-bottom: 20px;
-    }
-
-    .auth-prop-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 11px;
-      padding: 11px 13px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      backdrop-filter: blur(8px);
-      transition: all 0.2s ease;
-    }
-
-    .auth-prop-item:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(99, 102, 241, 0.35);
-      transform: translateX(3px);
-    }
-
-    .auth-prop-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-      background: rgba(99, 102, 241, 0.2);
-      border: 1px solid rgba(99, 102, 241, 0.35);
-      color: #a5b4fc;
-    }
-
-    .auth-prop-title {
-      font-size: 12.5px;
       font-weight: 700;
-      color: #f1f5f9;
-      margin-bottom: 2px;
-    }
-
-    .auth-prop-text {
-      font-size: 11px;
-      line-height: 1.35;
-      color: #94a3b8;
-    }
-
-    .auth-brand-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      position: relative;
-      z-index: 1;
-      font-size: 11.5px;
-      color: #64748b;
-    }
-
-    .auth-trust-pill {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: #cbd5e1;
-      font-weight: 600;
-    }
-
-    /* Right Panel: Clean Minimalist Forms */
-    .auth-form-side {
-      padding: 36px 32px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: var(--surface);
-      position: relative;
-    }
-
-    [data-theme="light"] .auth-form-side {
-      background: #ffffff;
-    }
-
-    /* Seamless Interactive Tab Toggle Switcher */
-    .auth-tab-toggle {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: var(--surface-raised);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 4px;
-      gap: 4px;
-      margin-bottom: 20px;
-    }
-
-    .auth-tab-btn {
-      padding: 8px 14px;
-      font-family: var(--font-main);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      background: transparent;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .auth-tab-btn:hover {
-      color: var(--text);
-    }
-
-    .auth-tab-btn.active {
-      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      font-size: 22px;
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
     }
 
-    [data-theme="light"] .auth-tab-toggle {
-      background: #f1f5f9;
-      border-color: #e2e8f0;
-    }
-
-    .auth-form-header {
-      margin-bottom: 18px;
-    }
-
-    .auth-form-title {
-      font-size: 21px;
+    .auth-header-title {
+      font-size: 24px;
       font-weight: 800;
       color: var(--text);
       letter-spacing: -0.4px;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
-    .auth-form-subtitle {
-      font-size: 12.5px;
+    .auth-header-subtitle {
+      font-size: 13.5px;
+      font-weight: 400;
       color: var(--text-muted);
       margin: 0;
     }
 
-    /* Input Field Group with Leading Icons */
-    .auth-field-group {
-      margin-bottom: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .auth-field-label {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .auth-input-wrap {
+    /* Floating Labels */
+    .form-floating {
       position: relative;
-      display: flex;
-      align-items: center;
-      width: 100%;
+      margin-bottom: 14px;
     }
 
-    .auth-input-icon {
-      position: absolute;
-      left: 13px;
-      width: 16px;
-      height: 16px;
-      color: var(--text-dim);
-      pointer-events: none;
-      transition: color 0.15s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .auth-input {
+    .form-floating .form-control {
       width: 100%;
-      height: 44px;
-      padding: 0 14px 0 38px;
+      height: 52px;
+      padding: 20px 14px 6px;
       font-family: var(--font-main);
-      font-size: 13.5px;
+      font-size: 14px;
       color: var(--text);
       background: var(--surface-raised);
       border: 1px solid var(--border);
@@ -1646,29 +1625,34 @@
       box-sizing: border-box;
     }
 
-    .auth-input.has-trailing {
-      padding-right: 38px;
+    .form-floating .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
     }
 
-    .auth-input:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-      background: var(--surface);
-    }
-
-    .auth-input:focus~.auth-input-icon,
-    .auth-input:focus+.auth-input-icon {
-      color: #6366f1;
-    }
-
-    .auth-input.input-error {
+    .form-floating .form-control.input-error {
       border-color: var(--expense) !important;
       box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.25) !important;
     }
 
-    .auth-eye-btn {
+    .form-floating .form-label {
       position: absolute;
-      right: 11px;
+      top: 6px;
+      left: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-floating .btn-toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
       background: transparent;
       border: none;
       color: var(--text-dim);
@@ -1679,70 +1663,62 @@
       justify-content: center;
       border-radius: 4px;
       transition: color 0.15s ease;
+      z-index: 2;
     }
 
-    .auth-eye-btn:hover {
+    .form-floating .btn-toggle-password:hover {
       color: var(--text);
     }
 
-    .auth-eye-btn svg {
-      width: 16px;
-      height: 16px;
+    .form-floating .btn-toggle-password svg {
+      width: 17px;
+      height: 17px;
     }
 
-    /* Checkbox & Forgot link row */
-    .auth-options-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 10px 0 18px;
-      font-size: 12.5px;
-    }
-
-    .auth-check-label {
+    /* Checkbox & Links */
+    .form-check {
       display: flex;
       align-items: center;
-      gap: 7px;
-      cursor: pointer;
+      gap: 9px;
+      font-size: 13px;
       color: var(--text-muted);
-      margin: 0;
+      margin-bottom: 16px;
       user-select: none;
     }
 
-    .auth-check-input {
-      accent-color: #6366f1;
-      width: 15px;
-      height: 15px;
+    .form-check-input {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
       cursor: pointer;
     }
 
-    .auth-link-forgot {
-      color: #6366f1;
+    .link-primary {
+      color: var(--accent);
       text-decoration: none;
       font-weight: 600;
       transition: color 0.15s ease;
       cursor: pointer;
     }
 
-    .auth-link-forgot:hover {
-      color: #818cf8;
+    .link-primary:hover {
+      color: #fbbf24;
       text-decoration: underline;
     }
 
-    /* Primary Gradient Submit Button */
-    .btn-auth-submit {
+    /* Primary Submit Button */
+    .btn-bsb-primary {
       width: 100%;
-      height: 46px;
-      padding: 0 20px;
+      padding: 13px 18px;
       font-family: var(--font-main);
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 700;
       color: #ffffff;
-      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #4338ca 100%);
+      background: linear-gradient(135deg, #f59e0b, #d97706);
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
@@ -1750,21 +1726,108 @@
       gap: 8px;
     }
 
-    .btn-auth-submit:hover {
+    .btn-bsb-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
-      background: linear-gradient(135deg, #818cf8 0%, #6366f1 50%, #4f46e5 100%);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+      background: linear-gradient(135deg, #fbbf24, #d97706);
     }
 
-    .btn-auth-submit:active {
+    .btn-bsb-primary:active {
       transform: translateY(0);
+    }
+
+    /* Switch text & HR */
+    .auth-switch-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      margin: 20px 0 16px;
+    }
+
+    .auth-hr {
+      border: 0;
+      border-top: 1px solid var(--border);
+      margin: 18px 0;
+    }
+
+    .auth-social-label {
+      font-size: 12.5px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    /* Social Buttons Stack */
+    .auth-social-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-bsb-social {
+      width: 100%;
+      padding: 11px 16px;
+      font-family: var(--font-main);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      box-sizing: border-box;
+      border: 1px solid transparent;
+    }
+
+    .btn-social-google {
+      background: #ea4335;
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(234, 67, 53, 0.25);
+    }
+
+    .btn-social-google:hover {
+      background: #d93025;
+      box-shadow: 0 5px 14px rgba(234, 67, 53, 0.35);
+      color: #ffffff;
+    }
+
+    .btn-social-facebook {
+      background: #1877f2;
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(24, 119, 242, 0.25);
+    }
+
+    .btn-social-facebook:hover {
+      background: #166fe5;
+      box-shadow: 0 5px 14px rgba(24, 119, 242, 0.35);
+      color: #ffffff;
+    }
+
+    .btn-social-twitter {
+      background: #0ea5e9;
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(14, 165, 233, 0.25);
+    }
+
+    .btn-social-twitter:hover {
+      background: #0284c7;
+      box-shadow: 0 5px 14px rgba(14, 165, 233, 0.35);
+      color: #ffffff;
     }
 
     /* Auth Alert Banner */
     .auth-alert {
       padding: 10px 14px;
       border-radius: 10px;
-      font-size: 12px;
+      font-size: 12.5px;
       display: none;
       align-items: center;
       gap: 8px;
@@ -1801,7 +1864,7 @@
 
     /* Password Strength Indicator */
     .password-strength-wrap {
-      margin-top: -4px;
+      margin-top: -6px;
       margin-bottom: 12px;
     }
 
@@ -1826,37 +1889,15 @@
       text-align: right;
     }
 
-    /* Responsive Layout */
-    @media (max-width: 860px) {
-      .auth-split-card {
-        grid-template-columns: 1fr;
-        max-width: 480px;
-        margin: 0 auto;
+    /* Responsive */
+    @media (max-width: 540px) {
+      .auth-bsb-card {
+        padding: 26px 20px;
+        border-radius: 16px;
       }
 
-      .auth-brand-side {
-        padding: 24px 20px;
-        order: 2;
-        /* Form on top on mobile */
-      }
-
-      .auth-form-side {
-        padding: 28px 20px;
-        order: 1;
-      }
-
-      .auth-value-props {
-        display: none;
-      }
-
-      .auth-brand-headline {
-        font-size: 18px;
-        margin-bottom: 4px;
-      }
-
-      .auth-brand-desc {
-        font-size: 12px;
-        margin-bottom: 10px;
+      .auth-header-title {
+        font-size: 21px;
       }
     }
 
@@ -2009,335 +2050,169 @@
 
   <!-- AUTHENTICATION OVERLAY SCREEN -->
   <div class="auth-overlay" id="authOverlay">
-    <div class="auth-split-wrapper">
-      <div class="auth-split-card" id="authCard">
-
-        <!-- Left Panel: Immersive Branding & Value Proposition -->
-        <div class="auth-brand-side">
-          <div class="auth-brand-bg-glow"></div>
-          <div class="auth-brand-bg-glow-2"></div>
-
-          <div class="auth-brand-header">
-            <div class="auth-brand-badge">
-              <span class="auth-brand-badge-dot"></span>
-              Real-Time Wealth OS
-            </div>
-
-            <div class="auth-brand-logo-wrap">
-              <div class="auth-brand-icon">L</div>
-              <div class="auth-brand-name">Ledger<span>Pro</span></div>
-            </div>
-
-            <h2 class="auth-brand-headline">Intelligent Financial Intelligence & Smart Automation</h2>
-            <p class="auth-brand-desc">Master your cashflow with predictive insights, automated EMI & insurance policy
-              scheduler, and bank-grade privacy controls.</p>
-          </div>
-
-          <!-- Value Propositions -->
-          <div class="auth-value-props">
-            <div class="auth-prop-item">
-              <div class="auth-prop-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-              </div>
-              <div>
-                <div class="auth-prop-title">EMI & Policy Auto-Deductions</div>
-                <div class="auth-prop-text">Schedule recurring loan payments and insurance with automated ledger
-                  reconciliation.</div>
-              </div>
-            </div>
-
-            <div class="auth-prop-item">
-              <div class="auth-prop-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-                  <path d="M22 12A10 10 0 0 0 12 2v10z" />
-                </svg>
-              </div>
-              <div>
-                <div class="auth-prop-title">Dynamic Multi-Category Analytics</div>
-                <div class="auth-prop-text">Interactive visual breakdowns, monthly budget pacing, and net cashflow
-                  monitoring.</div>
-              </div>
-            </div>
-
-            <div class="auth-prop-item">
-              <div class="auth-prop-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-              </div>
-              <div>
-                <div class="auth-prop-title">Client-First Encrypted Storage</div>
-                <div class="auth-prop-text">Your financial data stays securely isolated with zero third-party tracking.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="auth-brand-footer">
-            <div class="auth-trust-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-              <span>Bank-Grade Encryption</span>
-            </div>
-            <div>Demo: arjun@ledger.io / demo</div>
+    <div class="auth-card-wrapper">
+      <div class="auth-bsb-card" id="authCard">
+        <!-- Brand Header -->
+        <div class="auth-header-brand">
+          <div class="auth-brand-logo">L</div>
+          <div>
+            <h2 class="auth-header-title" id="authMainTitle">Sign in</h2>
+            <h3 class="auth-header-subtitle" id="authMainSubtitle">Enter your credentials to access your account</h3>
           </div>
         </div>
 
-        <!-- Right Panel: Clean Minimalist Authentication Forms -->
-        <div class="auth-form-side">
-          <!-- Tab Toggle Switcher -->
-          <div class="auth-tab-toggle" id="authTabContainer">
-            <button type="button" class="auth-tab-btn active" id="tabBtnSignIn" onclick="switchAuthTab('signin')"
-              data-tab="signin">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                <polyline points="10 17 15 12 10 7" />
-                <line x1="15" y1="12" x2="3" y2="12" />
-              </svg>
-              Sign In
-            </button>
-            <button type="button" class="auth-tab-btn" id="tabBtnSignUp" onclick="switchAuthTab('signup')"
-              data-tab="signup">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="8.5" cy="7" r="4" />
-                <line x1="20" y1="8" x2="20" y2="14" />
-                <line x1="23" y1="11" x2="17" y2="11" />
-              </svg>
-              Sign Up
-            </button>
-          </div>
-
-          <!-- Dynamic Alert Banner -->
-          <div class="auth-alert" id="authAlert" role="alert">
-            <span id="authAlertIcon" style="font-size: 14px;">⚠️</span>
-            <span id="authAlertText">Error message goes here</span>
-          </div>
-
-          <!-- SIGN IN FORM -->
-          <form id="signInForm" onsubmit="handleSignIn(event)">
-            <div class="auth-form-header">
-              <h2 class="auth-form-title" id="authMainTitle">Welcome Back</h2>
-              <p class="auth-form-subtitle" id="authMainSubtitle">Enter your credentials to access your financial
-                dashboard</p>
-            </div>
-
-            <div class="auth-field-group">
-              <label for="loginEmail" class="auth-field-label">Email Address</label>
-              <div class="auth-input-wrap">
-                <div class="auth-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                  </svg>
-                </div>
-                <input type="email" class="auth-input" name="loginEmail" id="loginEmail" placeholder="name@example.com"
-                  oninput="clearAuthAlert()" required autocomplete="email" value="arjun@ledger.io">
-              </div>
-            </div>
-
-            <div class="auth-field-group">
-              <label for="loginPassword" class="auth-field-label">Password</label>
-              <div class="auth-input-wrap">
-                <div class="auth-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
-                </div>
-                <input type="password" class="auth-input has-trailing" name="loginPassword" id="loginPassword"
-                  placeholder="Enter your password" oninput="clearAuthAlert()" required autocomplete="current-password"
-                  value="demo">
-                <button type="button" class="auth-eye-btn" id="toggleLoginPassBtn"
-                  onclick="togglePasswordVisibility('loginPassword', this)" title="Toggle password visibility"
-                  aria-label="Toggle password visibility">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="auth-options-row">
-              <label class="auth-check-label">
-                <input class="auth-check-input" type="checkbox" id="rememberMeCheck" checked>
-                <span>Remember me</span>
-              </label>
-              <a href="javascript:void(0)" class="auth-link-forgot" onclick="switchAuthTab('forgot')">Forgot
-                password?</a>
-            </div>
-
-            <button class="btn-auth-submit" id="btnSignInSubmit" type="submit">
-              <span>Sign In to Dashboard</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </form>
-
-          <!-- SIGN UP FORM -->
-          <form id="signUpForm" style="display: none;" onsubmit="handleSignUp(event)">
-            <div class="auth-form-header">
-              <h2 class="auth-form-title">Create an Account</h2>
-              <p class="auth-form-subtitle">Start tracking and automating your wealth in minutes</p>
-            </div>
-
-            <div class="auth-field-group">
-              <label for="regFullName" class="auth-field-label">Full Name</label>
-              <div class="auth-input-wrap">
-                <div class="auth-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                </div>
-                <input type="text" class="auth-input" name="fullName" id="regFullName" placeholder="e.g. Arjun Mehta"
-                  oninput="clearAuthAlert()" required autocomplete="name">
-              </div>
-            </div>
-
-            <div class="auth-field-group">
-              <label for="regEmail" class="auth-field-label">Email Address</label>
-              <div class="auth-input-wrap">
-                <div class="auth-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                  </svg>
-                </div>
-                <input type="email" class="auth-input" name="regEmail" id="regEmail" placeholder="name@example.com"
-                  oninput="clearAuthAlert()" required autocomplete="email">
-              </div>
-            </div>
-
-            <div class="auth-field-group">
-              <label for="regPassword" class="auth-field-label">Password</label>
-              <div class="auth-input-wrap">
-                <div class="auth-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
-                </div>
-                <input type="password" class="auth-input has-trailing" name="regPassword" id="regPassword"
-                  placeholder="Minimum 6 characters" minlength="6" oninput="handlePasswordInput(this.value)" required
-                  autocomplete="new-password">
-                <button type="button" class="auth-eye-btn" id="toggleRegPassBtn"
-                  onclick="togglePasswordVisibility('regPassword', this)" title="Toggle password visibility"
-                  aria-label="Toggle password visibility">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Real-time Password Strength Meter -->
-            <div class="password-strength-wrap" id="regPasswordStrengthWrap" style="display: none;">
-              <div class="password-strength-bar">
-                <div class="password-strength-fill" id="regStrengthFill"></div>
-              </div>
-              <div class="password-strength-text" id="regStrengthText">Password strength</div>
-            </div>
-
-            <div class="auth-field-group">
-              <label for="regConfirmPassword" class="auth-field-label">Confirm Password</label>
-              <div class="auth-input-wrap">
-                <div class="auth-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  </svg>
-                </div>
-                <input type="password" class="auth-input has-trailing" name="regConfirmPassword" id="regConfirmPassword"
-                  placeholder="Re-enter your password" minlength="6" oninput="clearAuthAlert()" required
-                  autocomplete="new-password">
-                <button type="button" class="auth-eye-btn" id="toggleRegConfirmPassBtn"
-                  onclick="togglePasswordVisibility('regConfirmPassword', this)" title="Toggle password visibility"
-                  aria-label="Toggle password visibility">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="auth-options-row" style="margin: 10px 0 16px;">
-              <label class="auth-check-label">
-                <input class="auth-check-input" type="checkbox" id="iAgree" required checked>
-                <span style="font-size: 11.5px;">I agree to the <a href="javascript:void(0)"
-                    class="auth-link-forgot">Terms of Service & Privacy</a></span>
-              </label>
-            </div>
-
-            <button class="btn-auth-submit" id="btnSignUpSubmit" type="submit">
-              <span>Create Account</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </form>
-
-          <!-- FORGOT PASSWORD FORM -->
-          <form id="forgotPasswordForm" style="display: none;" onsubmit="handleForgotPasswordSubmit(event)">
-            <div class="auth-form-header">
-              <h2 class="auth-form-title">Reset Password</h2>
-              <p class="auth-form-subtitle">Enter your registered email and choose a new password</p>
-            </div>
-
-            <div class="auth-field-group">
-              <label for="forgotEmail" class="auth-field-label">Registered Email</label>
-              <div class="auth-input-wrap">
-                <div class="auth-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                  </svg>
-                </div>
-                <input type="email" class="auth-input" name="forgotEmail" id="forgotEmail"
-                  placeholder="name@example.com" oninput="clearAuthAlert()" required autocomplete="email">
-              </div>
-            </div>
-
-            <div class="auth-field-group">
-              <label for="forgotNewPassword" class="auth-field-label">New Password</label>
-              <div class="auth-input-wrap">
-                <div class="auth-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
-                </div>
-                <input type="password" class="auth-input has-trailing" name="forgotNewPassword" id="forgotNewPassword"
-                  placeholder="Minimum 6 characters" minlength="6" oninput="clearAuthAlert()" required
-                  autocomplete="new-password">
-                <button type="button" class="auth-eye-btn" onclick="togglePasswordVisibility('forgotNewPassword', this)"
-                  title="Toggle password visibility" aria-label="Toggle password visibility">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <button class="btn-auth-submit" style="margin-top: 10px;" type="submit">
-              <span>Update Password & Sign In</span>
-            </button>
-
-            <div style="text-align: center; margin-top: 14px;">
-              <a href="javascript:void(0)" class="auth-link-forgot" onclick="switchAuthTab('signin')">← Back to Sign
-                In</a>
-            </div>
-          </form>
+        <!-- Dynamic Inline Alert Banner -->
+        <div class="auth-alert" id="authAlert" role="alert">
+          <span id="authAlertIcon" style="font-size: 14px;">⚠️</span>
+          <span id="authAlertText">Error message goes here</span>
         </div>
+
+        <!-- Sign In Form -->
+        <form id="signInForm" onsubmit="handleSignIn(event)">
+          <div class="form-floating">
+            <input type="email" class="form-control" name="loginEmail" id="loginEmail" placeholder="name@example.com"
+              oninput="clearAuthAlert()" required autocomplete="email">
+            <label for="loginEmail" class="form-label">Email</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="password" class="form-control" name="loginPassword" id="loginPassword" placeholder="Password"
+              oninput="clearAuthAlert()" required autocomplete="current-password">
+            <label for="loginPassword" class="form-label"> </label>
+            <button type="button" class="btn-toggle-password" id="toggleLoginPassBtn"
+              onclick="togglePasswordVisibility('loginPassword', this)" title="Toggle password visibility"
+              aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="form-check"
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin: 0;">
+              <input class="form-check-input" type="checkbox" id="rememberMeCheck" checked>
+              <span>Remember me</span>
+            </label>
+            <a href="javascript:void(0)" class="link-primary" onclick="switchAuthTab('forgot')">Forgot password?</a>
+          </div>
+
+          <button class="btn-bsb-primary" id="btnSignInSubmit" type="submit">Sign in</button>
+
+          <p class="auth-switch-text">
+            Don't have an account? <a href="javascript:void(0)" class="link-primary"
+              onclick="switchAuthTab('signup')">Sign up</a>
+          </p>
+
+          <hr class="auth-hr">
+
+
+
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signUpForm" style="display: none;" onsubmit="handleSignUp(event)">
+          <div style="display: flex; gap: 10px;">
+            <div class="form-floating" style="flex: 1;">
+              <input type="text" class="form-control" name="firstName" id="regFirstName" placeholder="First Name"
+                oninput="clearAuthAlert()" required autocomplete="given-name">
+              <label for="regFirstName" class="form-label">First Name</label>
+            </div>
+            <div class="form-floating" style="flex: 1;">
+              <input type="text" class="form-control" name="lastName" id="regLastName" placeholder="Last Name"
+                oninput="clearAuthAlert()" required autocomplete="family-name">
+              <label for="regLastName" class="form-label">Last Name</label>
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <input type="email" class="form-control" name="regEmail" id="regEmail" placeholder="name@example.com"
+              oninput="clearAuthAlert()" required autocomplete="email">
+            <label for="regEmail" class="form-label">Email</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="password" class="form-control" name="regPassword" id="regPassword" placeholder="Password"
+              minlength="6" oninput="handlePasswordInput(this.value)" required autocomplete="new-password">
+            <label for="regPassword" class="form-label">Password</label>
+            <button type="button" class="btn-toggle-password" id="toggleRegPassBtn"
+              onclick="togglePasswordVisibility('regPassword', this)" title="Toggle password visibility"
+              aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Real-time Password Strength Meter -->
+          <div class="password-strength-wrap" id="regPasswordStrengthWrap" style="display: none;">
+            <div class="password-strength-bar">
+              <div class="password-strength-fill" id="regStrengthFill"></div>
+            </div>
+            <div class="password-strength-text" id="regStrengthText">Password strength</div>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="iAgree" required checked>
+            <label class="form-check-label" for="iAgree" style="cursor: pointer;">
+              I agree to the <a href="javascript:void(0)" class="link-primary">terms and conditions</a>
+            </label>
+          </div>
+
+          <button class="btn-bsb-primary" type="submit">Sign up</button>
+
+          <p class="auth-switch-text">
+            Already have an account? <a href="javascript:void(0)" class="link-primary"
+              onclick="switchAuthTab('signin')">Sign in</a>
+          </p>
+
+          <hr class="auth-hr">
+
+
+          <div class="auth-social-stack">
+            <button type="button" class="btn-bsb-social btn-social-google" onclick="handleGoogleAuth()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path
+                  d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+              </svg>
+              <span>Sign in With Google</span>
+            </button>
+
+
+          </div>
+        </form>
+
+        <!-- Forgot Password Form -->
+        <form id="forgotPasswordForm" style="display: none;" onsubmit="handleForgotPasswordSubmit(event)">
+          <div class="form-floating">
+            <input type="email" class="form-control" name="forgotEmail" id="forgotEmail" placeholder="name@example.com"
+              oninput="clearAuthAlert()" required autocomplete="email">
+            <label for="forgotEmail" class="form-label">Registered Email</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="password" class="form-control" name="forgotNewPassword" id="forgotNewPassword"
+              placeholder="New Password" minlength="6" oninput="clearAuthAlert()" required autocomplete="new-password">
+            <label for="forgotNewPassword" class="form-label">New Password</label>
+            <button type="button" class="btn-toggle-password"
+              onclick="togglePasswordVisibility('forgotNewPassword', this)" title="Toggle password visibility"
+              aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+
+          <button class="btn-bsb-primary" type="submit">Reset Password</button>
+
+          <p class="auth-switch-text">
+            Remember your credentials? <a href="javascript:void(0)" class="link-primary"
+              onclick="switchAuthTab('signin')">Sign in</a>
+          </p>
+        </form>
       </div>
     </div>
   </div>
@@ -2385,11 +2260,16 @@
           </svg>
           Expenses
         </a>
-        <a href="" id="navExpenses" onclick="">
+        <a href="#emi" id="navEmi" onclick="navigateTo('emi', event)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12l7 7 7-7" />
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+            <path d="m9 16 2 2 4-4" />
           </svg>
-          Emi scheduler
+          EMI &amp; Policy Scheduler
+          <span class="nav-badge" id="navEmiCount">0</span>
         </a>
       </nav>
     </div>
@@ -2566,22 +2446,29 @@
 
     <!-- CHARTS GRID -->
     <div class="grid-2col" id="dashboardChartsGrid">
-      <!-- Cash Flow Line Chart -->
-      <div class="card">
-        <div class="card-header">
+      <!-- EMI & Policy Scheduler Chart -->
+      <div class="card" id="emiSchedulerChartCard">
+        <div class="card-header" style="flex-wrap: wrap; gap: 8px;">
           <div>
             <h2 class="card-title">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 3v18h18" />
-                <path d="m19 9-5 5-4-4-3 3" />
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <path d="m9 16 2 2 4-4" />
               </svg>
-              Cashflow Trajectory
+              EMI &amp; Policy Scheduler
             </h2>
-            <p class="card-subtitle">Monthly breakdown of income vs expenses</p>
+            <p class="card-subtitle">Monthly obligations &amp; scheduled policy outflows</p>
           </div>
+          <button class="btn-secondary" onclick="openReminderModal()" style="padding: 5px 10px; font-size: 11.5px; display: inline-flex; align-items: center; gap: 4px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Reminder
+          </button>
         </div>
         <div class="chart-wrapper">
-          <canvas id="cashflowChart"></canvas>
+          <canvas id="emiSchedulerChart"></canvas>
         </div>
       </div>
 
@@ -2604,6 +2491,49 @@
         </div>
       </div>
     </div>
+
+    <!-- DEDICATED EMI & POLICY SCHEDULER SECTION -->
+    <section id="emiSection" style="display: none; width: 100%; margin-bottom: 24px;">
+      <div class="dynamic-view-stats" id="emiViewStats">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div class="card">
+        <div class="card-header" style="flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h2 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              All Scheduled EMIs &amp; Insurance Policies
+            </h2>
+            <p class="card-subtitle">Manage recurring payment schedules, auto-debits, and due dates</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <div class="tab-filters">
+              <button class="tab-filter-btn active" onclick="filterEmiList('ALL', event)">All</button>
+              <button class="tab-filter-btn" onclick="filterEmiList('PENDING', event)">Pending Due</button>
+              <button class="tab-filter-btn" onclick="filterEmiList('PAID', event)">Paid</button>
+              <button class="tab-filter-btn" onclick="filterEmiList('AUTODEDUCT', event)">Auto-Deduct Active</button>
+            </div>
+            <button class="btn btn-primary" onclick="openReminderModal()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              New Reminder
+            </button>
+          </div>
+        </div>
+
+        <div id="fullEmiCardsGrid" class="emi-grid">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
 
     <!-- TRANSACTIONS & EXPENSES SECTION -->
     <section id="expenseSection" class="expense-section">
@@ -3020,6 +2950,90 @@
     </div>
   </div>
 
+  <!-- =========================================================================
+       MODAL: ADD / EDIT EMI & POLICY REMINDER
+       ========================================================================= -->
+  <div class="modal-overlay" id="reminderModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="reminderModalTitle">Schedule EMI / Policy Reminder</h3>
+        <button class="modal-close" onclick="closeReminderModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <form id="reminderForm" onsubmit="handleReminderSubmit(event)">
+        <input type="hidden" id="reminderEditId" value="">
+        <div class="modal-body">
+          <div class="type-switcher" style="grid-template-columns: 1fr 1fr 1fr;">
+            <button type="button" class="type-btn active expense" id="remTypeEmiBtn"
+              onclick="setReminderType('EMI')">Loan / EMI</button>
+            <button type="button" class="type-btn" id="remTypePolicyBtn"
+              onclick="setReminderType('POLICY')">Insurance Policy</button>
+            <button type="button" class="type-btn" id="remTypeBillBtn"
+              onclick="setReminderType('BILL')">Recurring Bill</button>
+          </div>
+          <input type="hidden" id="reminderType" value="EMI">
+
+          <div class="form-group">
+            <label for="remTitle">Title / Name *</label>
+            <input type="text" id="remTitle" class="input-field" placeholder="e.g. HDFC Home Loan EMI, Star Health Insurance, SBI Card" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="remAmount">Amount (<span id="remModalCurrencySymbol">₹</span>) *</label>
+              <input type="number" step="0.01" min="0.01" id="remAmount" class="input-field" placeholder="0.00" required>
+            </div>
+            <div class="form-group">
+              <label for="remCategory">Category</label>
+              <select id="remCategory" class="select-field" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="remDueDay">Recurring Due Day of Month (1-31) *</label>
+              <input type="number" min="1" max="31" id="remDueDay" class="input-field" placeholder="e.g. 5" required>
+            </div>
+            <div class="form-group">
+              <label for="remStatus">Payment Status</label>
+              <select id="remStatus" class="select-field">
+                <option value="Pending" selected>Pending</option>
+                <option value="Paid">Paid</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="background: var(--surface-raised); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+            <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 12.5px; font-weight: 600; color: var(--text);">
+              <input type="checkbox" id="remAutoDeduct" checked style="width: 18px; height: 18px; margin-top: 1px; accent-color: var(--accent); cursor: pointer;">
+              <div>
+                <div>⚡ Enable Scheduled Auto-Deduction</div>
+                <div style="font-size: 11px; font-weight: normal; color: var(--text-muted); margin-top: 2px;">
+                  Automatically records an 'EXPENSE' debit in your ledger on the scheduled due date for the current billing cycle.
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="remNotes">Notes / Loan A/C / Policy # (Optional)</label>
+            <input type="text" id="remNotes" class="input-field" placeholder="e.g. A/C #98234, 5-Year Tenure, HDFC Netbanking">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeReminderModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="remSubmitBtn">Save Reminder</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- TOAST CONTAINER -->
   <div class="toast-container" id="toastContainer"></div>
 
@@ -3030,6 +3044,8 @@
        ========================================================================= */
     const CATEGORIES = {
       EXPENSE: [
+        { name: 'Loans & EMI', icon: '💳', color: '#6366f1' },
+        { name: 'Insurance & Policies', icon: '🛡️', color: '#0ea5e9' },
         { name: 'Housing & Rent', icon: '🏠', color: '#f59e0b' },
         { name: 'Groceries & Provisions', icon: '🛒', color: '#10b981' },
         { name: 'Dining & Food Delivery', icon: '🍽️', color: '#f43f5e' },
@@ -3038,7 +3054,7 @@
         { name: 'Utilities & Bills', icon: '⚡', color: '#06b6d4' },
         { name: 'Healthcare & Medicine', icon: '💊', color: '#14b8a6' },
         { name: 'Shopping & Electronics', icon: '🛍️', color: '#eab308' },
-        { name: 'Subscriptions & OTT', icon: '📱', color: '#6366f1' },
+        { name: 'Subscriptions & OTT', icon: '📱', color: '#a855f7' },
         { name: 'Other Expense', icon: '📦', color: '#94a3b8' }
       ],
       INCOME: [
@@ -3068,6 +3084,58 @@
     // Default Transactions (Empty by default for clean start)
     const DEFAULT_TRANSACTIONS = [];
 
+    // Default EMI & Policy Reminders
+    const DEFAULT_REMINDERS = [
+      {
+        id: 'emi_demo_1',
+        title: 'HDFC Home Loan EMI',
+        amount: 28500,
+        type: 'EMI',
+        category: 'Loans & EMI',
+        dueDay: 5,
+        status: 'Pending',
+        autoDeduct: true,
+        lastDeducted: '',
+        notes: 'A/C: #HDFC-HL-88219 • Tenure: 15Y'
+      },
+      {
+        id: 'emi_demo_2',
+        title: 'Star Health Family Insurance',
+        amount: 4200,
+        type: 'POLICY',
+        category: 'Insurance & Policies',
+        dueDay: 15,
+        status: 'Pending',
+        autoDeduct: true,
+        lastDeducted: '',
+        notes: 'Optima Restore Policy #SH-99201'
+      },
+      {
+        id: 'emi_demo_3',
+        title: 'SBI Card Platinum EMI',
+        amount: 6500,
+        type: 'EMI',
+        category: 'Loans & EMI',
+        dueDay: 22,
+        status: 'Pending',
+        autoDeduct: true,
+        lastDeducted: '',
+        notes: 'MacBook Pro 6-mo zero-cost EMI'
+      },
+      {
+        id: 'emi_demo_4',
+        title: 'LIC Tech-Term Life Policy',
+        amount: 3100,
+        type: 'POLICY',
+        category: 'Insurance & Policies',
+        dueDay: 28,
+        status: 'Pending',
+        autoDeduct: true,
+        lastDeducted: '',
+        notes: 'Term Life Insurance #LIC-44102'
+      }
+    ];
+
     // Seed Demo User
     const DEMO_USER = {
       id: 'usr-arjun-01',
@@ -3081,6 +3149,7 @@
       currentView: 'dashboard',
       transactions: [],
       budgets: {},
+      reminders: [],
       currency: 'INR',
       theme: 'dark',
       filterType: 'ALL',
@@ -3090,7 +3159,7 @@
       modalMode: 'EXPENSE'
     };
 
-    let cashflowChartInstance = null;
+    let emiSchedulerChartInstance = null;
     let categoryChartInstance = null;
     let expenseBarChartInstance = null;
 
@@ -3109,6 +3178,9 @@
       const modalCurrency = document.getElementById('modalCurrencySymbol');
       if (modalCurrency) modalCurrency.textContent = CURRENCY_SYMBOLS[state.currency] || '₹';
 
+      const remCurrency = document.getElementById('remModalCurrencySymbol');
+      if (remCurrency) remCurrency.textContent = CURRENCY_SYMBOLS[state.currency] || '₹';
+
       const dateInput = document.getElementById('txDate');
       if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
 
@@ -3117,10 +3189,20 @@
         loadUserData(state.currentUser.id);
         updateUserUI();
         initCharts();
+        processAutoDeductions();
         renderAll();
         switchView('dashboard');
       } else {
         document.getElementById('authOverlay').classList.remove('hidden');
+      }
+
+      // Scheduled Auto-Deduction daemon check (runs continuously in background)
+      if (!window.emiAutoDeductDaemonInterval) {
+        window.emiAutoDeductDaemonInterval = setInterval(() => {
+          if (state.currentUser) {
+            processAutoDeductions();
+          }
+        }, 30000);
       }
     }
 
@@ -3167,16 +3249,21 @@
       try {
         const txKey = `ledger_tx_${userId}`;
         const budgetKey = `ledger_budgets_${userId}`;
+        const remindersKey = `ledger_reminders_${userId}`;
 
         const savedTx = localStorage.getItem(txKey);
         state.transactions = savedTx ? JSON.parse(savedTx) : [];
 
         const savedBudgets = localStorage.getItem(budgetKey);
         state.budgets = savedBudgets ? JSON.parse(savedBudgets) : {};
+
+        const savedReminders = localStorage.getItem(remindersKey);
+        state.reminders = savedReminders ? JSON.parse(savedReminders) : JSON.parse(JSON.stringify(DEFAULT_REMINDERS));
       } catch (e) {
         console.error('User data load error', e);
         state.transactions = [];
         state.budgets = {};
+        state.reminders = JSON.parse(JSON.stringify(DEFAULT_REMINDERS));
       }
     }
 
@@ -3184,6 +3271,7 @@
       if (!userId) return;
       localStorage.setItem(`ledger_tx_${userId}`, JSON.stringify(state.transactions));
       localStorage.setItem(`ledger_budgets_${userId}`, JSON.stringify(state.budgets));
+      localStorage.setItem(`ledger_reminders_${userId}`, JSON.stringify(state.reminders));
       localStorage.setItem('ledger_currency', state.currency);
       localStorage.setItem('ledger_theme', state.theme);
     }
@@ -3199,36 +3287,34 @@
     }
 
     /* =========================================================================
-   AUTH HANDLERS & SECURITY LOGIC
-   ========================================================================= */
+       AUTH HANDLERS & SECURITY LOGIC
+       ========================================================================= */
     function switchAuthTab(tab) {
       clearAuthAlert();
       const signInForm = document.getElementById('signInForm');
       const signUpForm = document.getElementById('signUpForm');
       const forgotForm = document.getElementById('forgotPasswordForm');
-      const tabSignIn = document.getElementById('tabBtnSignIn');
-      const tabSignUp = document.getElementById('tabBtnSignUp');
-      const tabContainer = document.getElementById('authTabContainer');
+      const mainTitle = document.getElementById('authMainTitle');
+      const mainSubtitle = document.getElementById('authMainSubtitle');
 
       if (tab === 'signin') {
         if (signInForm) signInForm.style.display = 'block';
         if (signUpForm) signUpForm.style.display = 'none';
         if (forgotForm) forgotForm.style.display = 'none';
-        if (tabSignIn) tabSignIn.classList.add('active');
-        if (tabSignUp) tabSignUp.classList.remove('active');
-        if (tabContainer) tabContainer.style.display = 'grid';
+        if (mainTitle) mainTitle.textContent = 'Sign in';
+        if (mainSubtitle) mainSubtitle.textContent = 'Enter your credentials to access your account';
       } else if (tab === 'signup') {
         if (signUpForm) signUpForm.style.display = 'block';
         if (signInForm) signInForm.style.display = 'none';
         if (forgotForm) forgotForm.style.display = 'none';
-        if (tabSignUp) tabSignUp.classList.add('active');
-        if (tabSignIn) tabSignIn.classList.remove('active');
-        if (tabContainer) tabContainer.style.display = 'grid';
+        if (mainTitle) mainTitle.textContent = 'Registration';
+        if (mainSubtitle) mainSubtitle.textContent = 'Enter your details to register';
       } else if (tab === 'forgot') {
         if (forgotForm) forgotForm.style.display = 'block';
         if (signInForm) signInForm.style.display = 'none';
         if (signUpForm) signUpForm.style.display = 'none';
-        if (tabContainer) tabContainer.style.display = 'none';
+        if (mainTitle) mainTitle.textContent = 'Password Recovery';
+        if (mainSubtitle) mainSubtitle.textContent = 'Reset your password to restore account access';
       }
     }
 
@@ -3238,7 +3324,7 @@
         alertEl.style.display = 'none';
         alertEl.className = 'auth-alert';
       }
-      document.querySelectorAll('.auth-input.input-error, .form-control.input-error, .input-field.input-error').forEach(el => {
+      document.querySelectorAll('.form-control.input-error, .input-field.input-error').forEach(el => {
         el.classList.remove('input-error');
       });
     }
@@ -3278,15 +3364,11 @@
       input.type = isPassword ? 'text' : 'password';
 
       if (isPassword) {
-        // Eye-off icon (password currently visible)
+        // Eye-off icon
         btnEl.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
-        btnEl.setAttribute('aria-label', 'Hide password');
-        btnEl.setAttribute('title', 'Hide password');
       } else {
-        // Eye icon (password currently masked)
-        btnEl.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
-        btnEl.setAttribute('aria-label', 'Show password');
-        btnEl.setAttribute('title', 'Show password');
+        // Eye icon
+        btnEl.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
       }
     }
 
@@ -3349,7 +3431,7 @@
 
       if (!user) {
         if (emailInput) emailInput.classList.add('input-error');
-        showAuthAlert(`No account found with email "${email}". Please verify your email or click Sign Up to register.`, 'error');
+        showAuthAlert(`No account found with email "${email}". Please verify your email or Create an Account.`, 'error');
         showToast('Account not found. Please sign up.', '⚠️');
         return;
       }
@@ -3372,19 +3454,15 @@
       e.preventDefault();
       clearAuthAlert();
 
-      const fullNameInput = document.getElementById('regFullName');
       const firstNameInput = document.getElementById('regFirstName');
       const lastNameInput = document.getElementById('regLastName');
       const nameInput = document.getElementById('regName');
       const emailInput = document.getElementById('regEmail');
       const passInput = document.getElementById('regPassword');
-      const confirmPassInput = document.getElementById('regConfirmPassword');
       const termsCheck = document.getElementById('iAgree');
 
       let name = '';
-      if (fullNameInput && fullNameInput.value.trim()) {
-        name = fullNameInput.value.trim();
-      } else if (firstNameInput && lastNameInput && (firstNameInput.value || lastNameInput.value)) {
+      if (firstNameInput && lastNameInput && (firstNameInput.value || lastNameInput.value)) {
         name = `${firstNameInput.value.trim()} ${lastNameInput.value.trim()}`.trim();
       } else if (nameInput) {
         name = nameInput.value.trim();
@@ -3392,42 +3470,20 @@
 
       const email = (emailInput ? emailInput.value : '').trim().toLowerCase();
       const password = passInput ? passInput.value : '';
-      const confirmPassword = confirmPassInput ? confirmPassInput.value : '';
 
-      if (!name) {
-        if (fullNameInput) fullNameInput.classList.add('input-error');
-        showAuthAlert('Please enter your full name.', 'error');
+      if (!name || !email || !password) {
+        showAuthAlert('Please fill in all required fields.', 'error');
         return;
       }
 
-      if (!email) {
-        if (emailInput) emailInput.classList.add('input-error');
-        showAuthAlert('Please enter a valid email address.', 'error');
-        return;
-      }
-
-      if (!password) {
-        if (passInput) passInput.classList.add('input-error');
-        showAuthAlert('Please enter a password.', 'error');
+      if (termsCheck && !termsCheck.checked) {
+        showAuthAlert('Please agree to the terms and conditions to register.', 'error');
         return;
       }
 
       if (password.length < 6) {
         if (passInput) passInput.classList.add('input-error');
         showAuthAlert('Password must be at least 6 characters long.', 'error');
-        return;
-      }
-
-      if (confirmPassInput && confirmPassword !== password) {
-        confirmPassInput.classList.add('input-error');
-        confirmPassInput.focus();
-        showAuthAlert('Passwords do not match. Please ensure both passwords are identical.', 'error');
-        showToast('Passwords do not match.', '⚠️');
-        return;
-      }
-
-      if (termsCheck && !termsCheck.checked) {
-        showAuthAlert('Please agree to the Terms of Service to register.', 'error');
         return;
       }
 
@@ -3681,6 +3737,7 @@
       renderSummaryCards();
       renderBudgetProgress();
       renderDynamicViewMetrics();
+      renderEmiReminders();
       renderTransactionsTable();
       renderRecentTransactions();
       updateCharts();
@@ -4136,36 +4193,22 @@
       const gridColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)';
       const textColor = isDark ? '#94a3b8' : '#64748b';
 
-      // Cash Flow Line Chart
-      const ctxCashflow = document.getElementById('cashflowChart')?.getContext('2d');
-      if (ctxCashflow) {
-        if (cashflowChartInstance) cashflowChartInstance.destroy();
-        cashflowChartInstance = new Chart(ctxCashflow, {
-          type: 'line',
+      // EMI & Policy Scheduler Bar Chart (Replaces Cashflow Trajectory)
+      const ctxEmi = document.getElementById('emiSchedulerChart')?.getContext('2d');
+      if (ctxEmi) {
+        if (emiSchedulerChartInstance) emiSchedulerChartInstance.destroy();
+        emiSchedulerChartInstance = new Chart(ctxEmi, {
+          type: 'bar',
           data: {
             labels: [],
             datasets: [
               {
-                label: 'Income',
+                label: 'Scheduled Obligation',
                 data: [],
-                borderColor: '#10b981',
-                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                borderWidth: 2.5,
-                tension: 0.35,
-                fill: true,
-                pointRadius: isMobile ? 3 : 4,
-                pointHoverRadius: isMobile ? 5 : 6
-              },
-              {
-                label: 'Expenses',
-                data: [],
-                borderColor: '#f43f5e',
-                backgroundColor: 'rgba(244, 63, 94, 0.1)',
-                borderWidth: 2.5,
-                tension: 0.35,
-                fill: true,
-                pointRadius: isMobile ? 3 : 4,
-                pointHoverRadius: isMobile ? 5 : 6
+                backgroundColor: [],
+                borderRadius: 6,
+                borderSkipped: false,
+                barPercentage: 0.65
               }
             ]
           },
@@ -4173,29 +4216,31 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-              legend: {
-                position: 'top',
-                labels: {
-                  color: textColor,
-                  font: { family: "'Plus Jakarta Sans', sans-serif", size: isMobile ? 11 : 12 },
-                  boxWidth: isMobile ? 10 : 12,
-                  padding: isMobile ? 8 : 10
-                }
-              },
+              legend: { display: false },
               tooltip: {
                 callbacks: {
-                  label: ctx => `${ctx.dataset.label}: ${formatCurrency(ctx.raw)}`
+                  title: (ctx) => ctx[0]?.label || '',
+                  label: (ctx) => {
+                    const idx = ctx.dataIndex;
+                    const r = state.reminders ? state.reminders[idx] : null;
+                    const statusText = r ? `Status: ${r.status}` : '';
+                    const dueInfo = r ? (r.dueDay ? `Due: ${r.dueDay}th of month` : (r.dueDate ? `Due: ${r.dueDate}` : '')) : '';
+                    return [
+                      ` Obligation: ${formatCurrency(ctx.raw)}`,
+                      ` ${statusText} • ${dueInfo}`
+                    ];
+                  }
                 }
               }
             },
             scales: {
               x: {
-                grid: { color: gridColor },
+                grid: { display: false },
                 ticks: {
                   color: textColor,
-                  font: { family: "'Plus Jakarta Sans', sans-serif", size: isMobile ? 10 : 12 },
-                  autoSkip: true,
-                  maxTicksLimit: isMobile ? 6 : 12
+                  font: { family: "'Plus Jakarta Sans', sans-serif", size: isMobile ? 10 : 11, weight: '600' },
+                  maxRotation: 25,
+                  minRotation: 0
                 }
               },
               y: {
@@ -4204,7 +4249,7 @@
                   color: textColor,
                   font: { family: "'Plus Jakarta Sans', sans-serif", size: isMobile ? 10 : 12 },
                   callback: val => formatCurrency(val),
-                  maxTicksLimit: isMobile ? 5 : 8
+                  maxTicksLimit: isMobile ? 4 : 6
                 }
               }
             }
@@ -4316,25 +4361,38 @@
     }
 
     function updateCharts() {
-      if (!cashflowChartInstance || !categoryChartInstance) return;
+      // Update EMI & Policy Scheduler Chart
+      if (emiSchedulerChartInstance) {
+        const emiLabels = [];
+        const emiData = [];
+        const emiColors = [];
+        const currentMonthKey = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`;
 
-      // Group transactions by date/month for line chart
-      const dateMap = {};
-      state.transactions.forEach(t => {
-        const d = t.date || '2026-09-01';
-        if (!dateMap[d]) dateMap[d] = { income: 0, expense: 0 };
-        if (t.type === 'INCOME') dateMap[d].income += Number(t.amount);
-        if (t.type === 'EXPENSE') dateMap[d].expense += Number(t.amount);
-      });
+        (state.reminders || []).forEach(r => {
+          const shortTitle = r.title.length > 16 ? r.title.slice(0, 14) + '…' : r.title;
+          const dueDayText = r.dueDay ? ` (${r.dueDay}th)` : '';
+          emiLabels.push(`${shortTitle}${dueDayText}`);
+          emiData.push(Number(r.amount));
 
-      const sortedDates = Object.keys(dateMap).sort();
-      const incomeData = sortedDates.map(d => dateMap[d].income);
-      const expenseData = sortedDates.map(d => dateMap[d].expense);
+          const isPaid = r.status === 'Paid' || r.lastDeducted === currentMonthKey;
+          if (isPaid) {
+            emiColors.push('#10b981'); // Emerald for cleared / paid
+          } else if (r.type === 'POLICY') {
+            emiColors.push('#0ea5e9'); // Cyan for Insurance
+          } else if (r.type === 'BILL') {
+            emiColors.push('#f59e0b'); // Amber for Bills
+          } else {
+            emiColors.push('#6366f1'); // Indigo for Loans / EMI
+          }
+        });
 
-      cashflowChartInstance.data.labels = sortedDates.map(d => d.slice(5));
-      cashflowChartInstance.data.datasets[0].data = incomeData;
-      cashflowChartInstance.data.datasets[1].data = expenseData;
-      cashflowChartInstance.update();
+        emiSchedulerChartInstance.data.labels = emiLabels;
+        emiSchedulerChartInstance.data.datasets[0].data = emiData;
+        emiSchedulerChartInstance.data.datasets[0].backgroundColor = emiColors;
+        emiSchedulerChartInstance.update();
+      }
+
+      if (!categoryChartInstance) return;
 
       // Spending distribution for doughnut & horizontal bar chart (only categories with expenses)
       const spending = getCategorySpending();
@@ -4405,6 +4463,8 @@
       const heroBanner = document.getElementById('dashboardHeroBanner');
       const statRow = document.getElementById('dashboardStatRow');
       const chartsGrid = document.getElementById('dashboardChartsGrid');
+      const dashboardEmiWidget = document.getElementById('dashboardEmiWidget');
+      const emiSection = document.getElementById('emiSection');
       const expenseBarCard = document.getElementById('expenseBarChartCard');
       const recentTxCard = document.getElementById('dashboardRecentTxCard');
       const budgetSection = document.getElementById('dashboardBudgetSection');
@@ -4431,6 +4491,8 @@
         if (heroBanner) heroBanner.style.display = 'flex';
         if (statRow) statRow.style.display = 'grid';
         if (chartsGrid) chartsGrid.style.display = 'grid';
+        if (dashboardEmiWidget) dashboardEmiWidget.style.display = 'block';
+        if (emiSection) emiSection.style.display = 'none';
         if (expenseBarCard) expenseBarCard.style.display = 'none';
         if (recentTxCard) recentTxCard.style.display = 'none';
         if (budgetSection) budgetSection.style.display = 'none';
@@ -4453,8 +4515,32 @@
         state.filterCategory = 'ALL';
         populateCategoryOptions('ALL');
         syncFilterTabs('ALL');
+        renderEmiReminders();
         renderTransactionsTable();
         updateCharts();
+      } else if (target === 'emi') {
+        const link = document.getElementById('navEmi');
+        if (link) link.classList.add('active');
+
+        // Hide dashboard components, show dedicated EMI section
+        if (heroBanner) heroBanner.style.display = 'none';
+        if (statRow) statRow.style.display = 'none';
+        if (chartsGrid) chartsGrid.style.display = 'none';
+        if (dashboardEmiWidget) dashboardEmiWidget.style.display = 'none';
+        if (expenseBarCard) expenseBarCard.style.display = 'none';
+        if (recentTxCard) recentTxCard.style.display = 'none';
+        if (budgetSection) budgetSection.style.display = 'none';
+        if (expenseSection) expenseSection.style.display = 'none';
+
+        const dynamicStats = document.getElementById('viewDynamicStats');
+        if (dynamicStats) dynamicStats.style.display = 'none';
+
+        if (emiSection) emiSection.style.display = 'block';
+
+        if (pageTitle) pageTitle.textContent = 'EMI & Policy Scheduler';
+        if (topbarGreeting) topbarGreeting.textContent = 'Manage recurring obligations, auto-deductions & renewals';
+
+        renderEmiReminders();
       } else if (target === 'transactions') {
         const link = document.getElementById('navTransactions');
         if (link) link.classList.add('active');
@@ -4463,6 +4549,8 @@
         if (heroBanner) heroBanner.style.display = 'none';
         if (statRow) statRow.style.display = 'none';
         if (chartsGrid) chartsGrid.style.display = 'none';
+        if (dashboardEmiWidget) dashboardEmiWidget.style.display = 'none';
+        if (emiSection) emiSection.style.display = 'none';
         if (expenseBarCard) expenseBarCard.style.display = 'none';
         if (recentTxCard) recentTxCard.style.display = 'none';
         if (budgetSection) budgetSection.style.display = 'none';
@@ -4491,6 +4579,8 @@
         if (heroBanner) heroBanner.style.display = 'none';
         if (statRow) statRow.style.display = 'none';
         if (chartsGrid) chartsGrid.style.display = 'none';
+        if (dashboardEmiWidget) dashboardEmiWidget.style.display = 'none';
+        if (emiSection) emiSection.style.display = 'none';
         if (expenseBarCard) expenseBarCard.style.display = 'none';
         if (recentTxCard) recentTxCard.style.display = 'none';
         if (budgetSection) budgetSection.style.display = 'none';
@@ -4519,6 +4609,8 @@
         if (heroBanner) heroBanner.style.display = 'none';
         if (statRow) statRow.style.display = 'none';
         if (chartsGrid) chartsGrid.style.display = 'none';
+        if (dashboardEmiWidget) dashboardEmiWidget.style.display = 'none';
+        if (emiSection) emiSection.style.display = 'none';
         if (expenseBarCard) expenseBarCard.style.display = 'none';
         if (recentTxCard) recentTxCard.style.display = 'none';
         if (budgetSection) budgetSection.style.display = 'none';
@@ -4540,6 +4632,596 @@
         renderDynamicViewMetrics();
         renderTransactionsTable();
       }
+    }
+
+    /* =========================================================================
+       EMI & POLICY REMINDER & AUTO-DEDUCTION ENGINE
+       ========================================================================= */
+    let currentEmiFilter = 'ALL';
+
+    function processAutoDeductions() {
+      if (!state.currentUser || !state.reminders || state.reminders.length === 0) return;
+
+      const today = new Date();
+      const currentDay = today.getDate();
+      const currentMonth = today.getMonth();
+      const currentYear = today.getFullYear();
+      const currentMonthKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`;
+      const todayStr = today.toISOString().split('T')[0];
+
+      let deductionsMade = 0;
+
+      state.reminders.forEach(reminder => {
+        if (reminder.autoDeduct === false) return;
+
+        // Has it already been deducted this cycle?
+        if (reminder.lastDeducted === currentMonthKey) return;
+
+        let isDueForDeduction = false;
+
+        if (reminder.dueDay) {
+          // If today is on or after the recurring day of the month
+          if (currentDay >= Number(reminder.dueDay)) {
+            isDueForDeduction = true;
+          }
+        } else if (reminder.dueDate) {
+          if (todayStr >= reminder.dueDate) {
+            isDueForDeduction = true;
+          }
+        }
+
+        if (isDueForDeduction) {
+          // Double check if a transaction for this reminder was already logged this cycle
+          const alreadyLogged = state.transactions.some(t =>
+            t.reminderId === reminder.id && t.date && t.date.startsWith(currentMonthKey)
+          );
+
+          if (!alreadyLogged) {
+            const autoTx = {
+              id: 'tx_auto_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+              type: 'EXPENSE',
+              description: reminder.category || (reminder.type === 'POLICY' ? 'Insurance & Policies' : 'Loans & EMI'),
+              category: reminder.category || (reminder.type === 'POLICY' ? 'Insurance & Policies' : 'Loans & EMI'),
+              amount: Number(reminder.amount),
+              date: todayStr,
+              method: 'Auto-Debit',
+              notes: `Auto-deducted: ${reminder.title} (${reminder.notes || 'Scheduled'})`,
+              reminderId: reminder.id,
+              isAutoDeducted: true
+            };
+
+            state.transactions.unshift(autoTx);
+            deductionsMade++;
+          }
+
+          reminder.status = 'Paid';
+          reminder.lastDeducted = currentMonthKey;
+        }
+      });
+
+      if (deductionsMade > 0) {
+        saveUserData(state.currentUser.id);
+        renderAll();
+        showToast(`⚡ Auto-deducted ${deductionsMade} scheduled EMI / Policy payment${deductionsMade > 1 ? 's' : ''}`, '⚡');
+      }
+    }
+
+    function getReminderCountdown(reminder) {
+      const today = new Date();
+      const currentDay = today.getDate();
+      const currentMonth = today.getMonth();
+      const currentYear = today.getFullYear();
+      const currentMonthKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`;
+
+      const isPaidThisCycle = reminder.status === 'Paid' || reminder.lastDeducted === currentMonthKey;
+
+      if (isPaidThisCycle) {
+        return {
+          status: 'paid',
+          label: '✓ Paid this cycle',
+          badgeClass: 'badge-emi-paid',
+          daysLeft: null
+        };
+      }
+
+      if (reminder.dueDay) {
+        const dueDay = Number(reminder.dueDay);
+        const daysDiff = dueDay - currentDay;
+
+        if (daysDiff === 0) {
+          return {
+            status: 'due-today',
+            label: '⚡ Due Today',
+            badgeClass: 'badge-emi-today',
+            daysLeft: 0
+          };
+        } else if (daysDiff === 1) {
+          return {
+            status: 'due-soon',
+            label: '⏰ Due Tomorrow',
+            badgeClass: 'badge-emi-warning',
+            daysLeft: 1
+          };
+        } else if (daysDiff > 1 && daysDiff <= 3) {
+          return {
+            status: 'due-soon',
+            label: `⏰ Due in ${daysDiff} days`,
+            badgeClass: 'badge-emi-warning',
+            daysLeft: daysDiff
+          };
+        } else if (daysDiff > 3) {
+          return {
+            status: 'upcoming',
+            label: `🗓️ Due in ${daysDiff} days (Day ${dueDay})`,
+            badgeClass: 'badge-emi-upcoming',
+            daysLeft: daysDiff
+          };
+        } else {
+          const overdueDays = Math.abs(daysDiff);
+          return {
+            status: 'overdue',
+            label: `⚠️ Overdue (${overdueDays}d ago)`,
+            badgeClass: 'badge-emi-overdue',
+            daysLeft: daysDiff
+          };
+        }
+      } else if (reminder.dueDate) {
+        const due = new Date(reminder.dueDate);
+        const diffTime = due.getTime() - new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 0) {
+          return {
+            status: 'due-today',
+            label: '⚡ Due Today',
+            badgeClass: 'badge-emi-today',
+            daysLeft: 0
+          };
+        } else if (diffDays === 1) {
+          return {
+            status: 'due-soon',
+            label: '⏰ Due Tomorrow',
+            badgeClass: 'badge-emi-warning',
+            daysLeft: 1
+          };
+        } else if (diffDays > 1 && diffDays <= 3) {
+          return {
+            status: 'due-soon',
+            label: `⏰ Due in ${diffDays} days`,
+            badgeClass: 'badge-emi-warning',
+            daysLeft: diffDays
+          };
+        } else if (diffDays > 3) {
+          return {
+            status: 'upcoming',
+            label: `🗓️ Due in ${diffDays} days`,
+            badgeClass: 'badge-emi-upcoming',
+            daysLeft: diffDays
+          };
+        } else {
+          const overdueDays = Math.abs(diffDays);
+          return {
+            status: 'overdue',
+            label: `⚠️ Overdue by ${overdueDays}d`,
+            badgeClass: 'badge-emi-overdue',
+            daysLeft: diffDays
+          };
+        }
+      }
+
+      return {
+        status: 'pending',
+        label: '⏳ Pending',
+        badgeClass: 'badge-emi-upcoming',
+        daysLeft: null
+      };
+    }
+
+    function filterEmiList(filter, event) {
+      currentEmiFilter = filter;
+      if (event) {
+        document.querySelectorAll('#emiSection .tab-filter-btn').forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+      }
+      renderEmiReminders();
+    }
+
+    function renderEmiReminders() {
+      const dashContainer = document.getElementById('dashboardEmiCardsGrid');
+      const fullContainer = document.getElementById('fullEmiCardsGrid');
+      const statsContainer = document.getElementById('emiViewStats');
+      const navBadge = document.getElementById('navEmiCount');
+
+      if (!state.reminders) state.reminders = [];
+
+      const currentMonthKey = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`;
+      const pendingCount = state.reminders.filter(r => r.status !== 'Paid' && r.lastDeducted !== currentMonthKey).length;
+      if (navBadge) navBadge.textContent = state.reminders.length;
+
+      let totalCommitment = 0;
+      let totalPaidCycle = 0;
+      let totalPendingCycle = 0;
+      let autoDeductCount = 0;
+
+      state.reminders.forEach(r => {
+        const amt = Number(r.amount) || 0;
+        totalCommitment += amt;
+        const isPaid = r.status === 'Paid' || r.lastDeducted === currentMonthKey;
+        if (isPaid) {
+          totalPaidCycle += amt;
+        } else {
+          totalPendingCycle += amt;
+        }
+        if (r.autoDeduct !== false) {
+          autoDeductCount++;
+        }
+      });
+
+      if (statsContainer) {
+        statsContainer.innerHTML = `
+          <div class="stat-card">
+            <div class="stat-icon-wrap icon-budget">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="stat-details">
+              <span class="stat-label">Monthly EMI &amp; Policy Total</span>
+              <span class="stat-value">${formatCurrency(totalCommitment)}</span>
+              <span class="stat-subtext">${state.reminders.length} active schedule(s)</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap icon-income">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-details">
+              <span class="stat-label">Paid This Month</span>
+              <span class="stat-value income">${formatCurrency(totalPaidCycle)}</span>
+              <span class="stat-subtext">${state.reminders.filter(r => r.status === 'Paid' || r.lastDeducted === currentMonthKey).length} cleared</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap icon-expense">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="stat-details">
+              <span class="stat-label">Pending Outflow Due</span>
+              <span class="stat-value expense">${formatCurrency(totalPendingCycle)}</span>
+              <span class="stat-subtext">${pendingCount} upcoming due</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap icon-count">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div class="stat-details">
+              <span class="stat-label">Auto-Debit Daemon</span>
+              <span class="stat-value">${autoDeductCount} Enabled</span>
+              <span class="stat-subtext">Automatic ledger recording</span>
+            </div>
+          </div>
+        `;
+      }
+
+      const renderCard = (r) => {
+        const countdown = getReminderCountdown(r);
+        const catInfo = getCategoryInfo(r.category || (r.type === 'POLICY' ? 'Insurance & Policies' : 'Loans & EMI'), 'EXPENSE');
+        const isPaid = countdown.status === 'paid';
+        const typeIcon = r.type === 'POLICY' ? '🛡️' : (r.type === 'BILL' ? '⚡' : '💳');
+        const dueText = r.dueDay ? `Due on ${r.dueDay}th of each month` : (r.dueDate ? `Due date: ${r.dueDate}` : 'Monthly recurring');
+
+        let cardClass = 'emi-card';
+        if (countdown.status === 'due-today') cardClass += ' is-due-today';
+        else if (countdown.status === 'due-soon') cardClass += ' is-due-soon';
+        else if (isPaid) cardClass += ' is-paid';
+
+        return `
+          <div class="${cardClass}" id="reminder_card_${r.id}">
+            <div class="emi-card-top">
+              <div class="emi-icon-title">
+                <div class="emi-icon-box" style="color: ${catInfo.color}; background: ${catInfo.color}18; border-color: ${catInfo.color}35;">
+                  ${typeIcon}
+                </div>
+                <div>
+                  <div class="emi-title-text">${escapeHTML(r.title)}</div>
+                  <div class="emi-category-tag">
+                    <span>${catInfo.icon} ${escapeHTML(r.category || (r.type === 'POLICY' ? 'Insurance & Policies' : 'Loans & EMI'))}</span>
+                    ${r.notes ? `• <span>${escapeHTML(r.notes)}</span>` : ''}
+                  </div>
+                </div>
+              </div>
+              <span class="badge-emi-countdown ${countdown.badgeClass}">${countdown.label}</span>
+            </div>
+
+            <div class="emi-amount-badge-row">
+              <div>
+                <div class="emi-amount">${formatCurrency(r.amount)}</div>
+                <div class="emi-due-info">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  ${dueText}
+                </div>
+              </div>
+              <div>
+                ${r.autoDeduct !== false ? `
+                  <span class="auto-deduct-status-pill" style="font-size: 10px; padding: 2px 7px;" title="Scheduled Auto-Debit is Active">
+                    <span class="live-pulse" style="width: 5px; height: 5px;"></span> Auto-Debit
+                  </span>
+                ` : `
+                  <span style="font-size: 10px; color: var(--text-dim); background: var(--surface); padding: 2px 7px; border-radius: 999px; border: 1px solid var(--border);">
+                    Manual Payment
+                  </span>
+                `}
+              </div>
+            </div>
+
+            <div class="emi-actions-row">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                ${!isPaid ? `
+                  <button class="btn-pay-now" onclick="manualTriggerDeduction('${r.id}')" title="Record instant payment & deduction into expense ledger">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    Pay / Deduct Now
+                  </button>
+                ` : `
+                  <span style="font-size: 11.5px; font-weight: 600; color: var(--income); display: inline-flex; align-items: center; gap: 4px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    Deduction Logged
+                  </span>
+                `}
+                <button class="btn-mark-paid ${isPaid ? 'is-paid' : ''}" onclick="toggleReminderStatus('${r.id}')" title="${isPaid ? 'Mark as Pending' : 'Mark as Paid'}">
+                  ${isPaid ? 'Mark Pending' : 'Mark Paid'}
+                </button>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <button class="btn-table-action" onclick="openReminderModal('${r.id}')" title="Edit reminder details">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button class="btn-table-action delete" onclick="deleteReminder('${r.id}')" title="Delete reminder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
+      const emptyHTML = `
+        <div class="empty-state" style="grid-column: 1 / -1; padding: 32px 16px;">
+          <div class="empty-icon">🗓️</div>
+          <div style="font-weight: 600; font-size: 14px; color: var(--text);">No EMI or Policy Reminders Scheduled</div>
+          <p style="font-size: 12px; color: var(--text-muted); max-width: 320px; margin: 0 auto;">
+            Create reminders for Home Loans, Insurance Premiums, and Credit Card EMIs to enable auto-deduction.
+          </p>
+          <button class="btn btn-primary" onclick="openReminderModal()" style="margin-top: 8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Your First Reminder
+          </button>
+        </div>
+      `;
+
+      if (dashContainer) {
+        if (state.reminders.length === 0) {
+          dashContainer.innerHTML = emptyHTML;
+        } else {
+          const sorted = [...state.reminders].sort((a, b) => {
+            const aPaid = (a.status === 'Paid' || a.lastDeducted === currentMonthKey) ? 1 : 0;
+            const bPaid = (b.status === 'Paid' || b.lastDeducted === currentMonthKey) ? 1 : 0;
+            if (aPaid !== bPaid) return aPaid - bPaid;
+            return (a.dueDay || 0) - (b.dueDay || 0);
+          });
+          dashContainer.innerHTML = sorted.map(renderCard).join('');
+        }
+      }
+
+      if (fullContainer) {
+        let list = [...state.reminders];
+        if (currentEmiFilter === 'PENDING') {
+          list = list.filter(r => r.status !== 'Paid' && r.lastDeducted !== currentMonthKey);
+        } else if (currentEmiFilter === 'PAID') {
+          list = list.filter(r => r.status === 'Paid' || r.lastDeducted === currentMonthKey);
+        } else if (currentEmiFilter === 'AUTODEDUCT') {
+          list = list.filter(r => r.autoDeduct !== false);
+        }
+
+        if (list.length === 0) {
+          fullContainer.innerHTML = emptyHTML;
+        } else {
+          fullContainer.innerHTML = list.map(renderCard).join('');
+        }
+      }
+    }
+
+    function manualTriggerDeduction(reminderId) {
+      const reminder = state.reminders.find(r => r.id === reminderId);
+      if (!reminder) return;
+
+      const today = new Date();
+      const currentMonth = today.getMonth();
+      const currentYear = today.getFullYear();
+      const currentMonthKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`;
+      const todayStr = today.toISOString().split('T')[0];
+
+      const newTx = {
+        id: 'tx_manual_emi_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+        type: 'EXPENSE',
+        description: reminder.category || (reminder.type === 'POLICY' ? 'Insurance & Policies' : 'Loans & EMI'),
+        category: reminder.category || (reminder.type === 'POLICY' ? 'Insurance & Policies' : 'Loans & EMI'),
+        amount: Number(reminder.amount),
+        date: todayStr,
+        method: 'Auto-Debit / Paid',
+        notes: `Paid EMI/Policy: ${reminder.title} (${reminder.notes || ''})`,
+        reminderId: reminder.id,
+        isAutoDeducted: true
+      };
+
+      state.transactions.unshift(newTx);
+      reminder.status = 'Paid';
+      reminder.lastDeducted = currentMonthKey;
+
+      if (state.currentUser) saveUserData(state.currentUser.id);
+      renderAll();
+      showToast(`Payment of ${formatCurrency(reminder.amount)} recorded for ${reminder.title}`, '💳');
+    }
+
+    function toggleReminderStatus(reminderId) {
+      const reminder = state.reminders.find(r => r.id === reminderId);
+      if (!reminder) return;
+
+      const today = new Date();
+      const currentMonthKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+
+      if (reminder.status === 'Paid' || reminder.lastDeducted === currentMonthKey) {
+        reminder.status = 'Pending';
+        reminder.lastDeducted = '';
+        showToast(`Marked ${reminder.title} as Pending`, '⏳');
+      } else {
+        reminder.status = 'Paid';
+        reminder.lastDeducted = currentMonthKey;
+        showToast(`Marked ${reminder.title} as Paid`, '✅');
+      }
+
+      if (state.currentUser) saveUserData(state.currentUser.id);
+      renderAll();
+    }
+
+    function deleteReminder(reminderId) {
+      const r = state.reminders.find(rem => rem.id === reminderId);
+      if (!r) return;
+      if (confirm(`Delete reminder "${r.title}"?`)) {
+        state.reminders = state.reminders.filter(rem => rem.id !== reminderId);
+        if (state.currentUser) saveUserData(state.currentUser.id);
+        renderAll();
+        showToast(`Deleted reminder: "${r.title}"`, '🗑️');
+      }
+    }
+
+    function openReminderModal(editId = null) {
+      document.getElementById('reminderEditId').value = editId || '';
+      const modal = document.getElementById('reminderModal');
+      const titleEl = document.getElementById('reminderModalTitle');
+      const submitBtn = document.getElementById('remSubmitBtn');
+      const currSymbol = CURRENCY_SYMBOLS[state.currency] || '₹';
+      const remSymbolEl = document.getElementById('remModalCurrencySymbol');
+      if (remSymbolEl) remSymbolEl.textContent = currSymbol;
+
+      populateReminderCategoryOptions();
+
+      if (editId) {
+        const r = state.reminders.find(rem => rem.id === editId);
+        if (!r) return;
+        titleEl.textContent = 'Edit EMI / Policy Reminder';
+        submitBtn.textContent = 'Update Reminder';
+        setReminderType(r.type || 'EMI');
+        document.getElementById('remTitle').value = r.title || '';
+        document.getElementById('remAmount').value = r.amount || '';
+        document.getElementById('remCategory').value = r.category || 'Loans & EMI';
+        document.getElementById('remDueDay').value = r.dueDay || 1;
+        document.getElementById('remStatus').value = r.status || 'Pending';
+        document.getElementById('remAutoDeduct').checked = r.autoDeduct !== false;
+        document.getElementById('remNotes').value = r.notes || '';
+      } else {
+        titleEl.textContent = 'Schedule EMI / Policy Reminder';
+        submitBtn.textContent = 'Save Reminder';
+        setReminderType('EMI');
+        document.getElementById('remTitle').value = '';
+        document.getElementById('remAmount').value = '';
+        document.getElementById('remCategory').value = 'Loans & EMI';
+        document.getElementById('remDueDay').value = 5;
+        document.getElementById('remStatus').value = 'Pending';
+        document.getElementById('remAutoDeduct').checked = true;
+        document.getElementById('remNotes').value = '';
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeReminderModal() {
+      const modal = document.getElementById('reminderModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function setReminderType(type) {
+      document.getElementById('reminderType').value = type;
+      const emiBtn = document.getElementById('remTypeEmiBtn');
+      const policyBtn = document.getElementById('remTypePolicyBtn');
+      const billBtn = document.getElementById('remTypeBillBtn');
+      const catSelect = document.getElementById('remCategory');
+
+      if (emiBtn) emiBtn.className = 'type-btn' + (type === 'EMI' ? ' active expense' : '');
+      if (policyBtn) policyBtn.className = 'type-btn' + (type === 'POLICY' ? ' active income' : '');
+      if (billBtn) billBtn.className = 'type-btn' + (type === 'BILL' ? ' active expense' : '');
+
+      if (catSelect && !document.getElementById('reminderEditId').value) {
+        if (type === 'EMI') catSelect.value = 'Loans & EMI';
+        else if (type === 'POLICY') catSelect.value = 'Insurance & Policies';
+        else catSelect.value = 'Utilities & Bills';
+      }
+    }
+
+    function populateReminderCategoryOptions() {
+      const remCatSelect = document.getElementById('remCategory');
+      if (!remCatSelect) return;
+      remCatSelect.innerHTML = CATEGORIES.EXPENSE.map(c =>
+        `<option value="${escapeHTML(c.name)}">${c.icon} ${escapeHTML(c.name)}</option>`
+      ).join('');
+    }
+
+    function handleReminderSubmit(e) {
+      e.preventDefault();
+      const editId = document.getElementById('reminderEditId').value;
+      const type = document.getElementById('reminderType').value || 'EMI';
+      const title = document.getElementById('remTitle').value.trim();
+      const amount = parseFloat(document.getElementById('remAmount').value);
+      const category = document.getElementById('remCategory').value;
+      const dueDay = parseInt(document.getElementById('remDueDay').value, 10);
+      const status = document.getElementById('remStatus').value;
+      const autoDeduct = document.getElementById('remAutoDeduct').checked;
+      const notes = document.getElementById('remNotes').value.trim();
+
+      if (!title || isNaN(amount) || amount <= 0 || isNaN(dueDay) || dueDay < 1 || dueDay > 31) {
+        showToast('Please enter a valid title, amount, and recurring due day (1-31).', '⚠️');
+        return;
+      }
+
+      if (editId) {
+        const idx = state.reminders.findIndex(r => r.id === editId);
+        if (idx !== -1) {
+          state.reminders[idx] = {
+            ...state.reminders[idx],
+            type,
+            title,
+            amount,
+            category,
+            dueDay,
+            status,
+            autoDeduct,
+            notes
+          };
+          showToast(`Updated reminder: "${title}"`, '✅');
+        }
+      } else {
+        const newReminder = {
+          id: 'emi_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+          type,
+          title,
+          amount,
+          category,
+          dueDay,
+          status,
+          autoDeduct,
+          lastDeducted: status === 'Paid' ? `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}` : '',
+          notes
+        };
+        state.reminders.push(newReminder);
+        showToast(`Scheduled reminder: "${title}"`, '🎉');
+      }
+
+      if (state.currentUser) saveUserData(state.currentUser.id);
+      processAutoDeductions();
+      renderAll();
+      closeReminderModal();
     }
 
     function syncFilterTabs(type) {
@@ -4883,6 +5565,7 @@
       if (confirm('Reset ledger data to original demo transactions (INR)?')) {
         state.transactions = JSON.parse(JSON.stringify(DEFAULT_TRANSACTIONS));
         state.budgets = JSON.parse(JSON.stringify(DEFAULT_BUDGETS));
+        state.reminders = JSON.parse(JSON.stringify(DEFAULT_REMINDERS));
         state.filterType = 'ALL';
         state.filterCategory = 'ALL';
         state.searchQuery = '';
